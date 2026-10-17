@@ -1,0 +1,642 @@
+{
+  "profile": {
+    "sells": "services",
+    "home_state": "TX",
+    "operating_states": [],
+    "owners": 1,
+    "hiring_within_12mo": false,
+    "revenue_band_usd": "50k_150k",
+    "formation_status": "not_formed",
+    "formation_date": null,
+    "business_start_date": "2026-03-01",
+    "tax_year_end": "12-31",
+    "existing_elections": [],
+    "touches_client_funds": false,
+    "touches_regulated_data": false,
+    "has_physical_premises": false,
+    "regulated_industry": null,
+    "funding_intent": "bootstrap",
+    "already_earning": true,
+    "decided": [
+      {
+        "decision_id": "D001",
+        "choice": "LLC (state legal entity)",
+        "decided_on": null
+      }
+    ],
+    "unknowns": [
+      "formation_date"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "T001",
+      "title": "File the Certificate of Formation with the Texas Secretary of State",
+      "why": "The LLC does not exist until the state accepts this filing, and every later step depends on it existing.",
+      "jurisdiction": {
+        "level": "state",
+        "code": "TX"
+      },
+      "agency": "Texas Secretary of State",
+      "form": {
+        "sources": [
+          {
+            "url": "https://www.sos.state.tx.us/corp/forms_boc.shtml",
+            "tier": 1,
+            "title": "Texas SOS - Business Organizations Code Forms",
+            "retrieved_at": "2026-09-16",
+            "effective_date": null,
+            "quote": "Form 205 - Certificate of Formation for a Limited Liability Company"
+          }
+        ],
+        "number": "Form 205",
+        "agency": "Texas SOS"
+      },
+      "official_url": "https://www.sos.state.tx.us/corp/forms_boc.shtml",
+      "diy_fee": {
+        "sources": [
+          {
+            "url": "https://direct.sos.state.tx.us/help/help-corp.asp?pg=fee",
+            "tier": 1,
+            "title": "Texas SOSDirect - Filing Fee Schedule",
+            "retrieved_at": "2026-09-16",
+            "effective_date": null,
+            "quote": "Certificate of formation for a Texas entity (except nonprofit corporation, cooperative association, PA or LP) (Forms 201, 203, 205, 206) $300"
+          }
+        ],
+        "amount_usd": 300.0
+      },
+      "typical_service_cost": null,
+      "processing_time_days": [
+        3,
+        15
+      ],
+      "depends_on": [],
+      "requires_decision": "D001",
+      "role": "entity_formation",
+      "deadline": null,
+      "have_ready": [
+        "Entity name plus two alternates",
+        "Registered agent name and Texas street address",
+        "Governing authority (member-managed or manager-managed)",
+        "Your mailing address"
+      ],
+      "common_mistakes": [
+        "Using a PO box as the registered agent address; Texas requires a physical street address.",
+        "Filing before checking name availability, which forces a refile at full fee."
+      ],
+      "confidence": 1.0,
+      "needs_professional": false,
+      "status": "ready",
+      "review": null,
+      "sources": [
+        {
+          "url": "https://www.sos.state.tx.us/corp/forms_boc.shtml",
+          "tier": 1,
+          "title": "Texas SOS - Business Organizations Code Forms",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        },
+        {
+          "url": "https://direct.sos.state.tx.us/help/help-corp.asp?pg=fee",
+          "tier": 1,
+          "title": "Texas SOSDirect - Filing Fee Schedule",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": "Certificate of formation for a Texas entity (except nonprofit corporation, cooperative association, PA or LP) (Forms 201, 203, 205, 206) $300"
+        }
+      ]
+    },
+    {
+      "id": "T002",
+      "title": "Adopt a written operating agreement",
+      "why": "Texas does not file it, but banks ask for it and it is what separates the entity from its owner if that separation is ever tested.",
+      "jurisdiction": {
+        "level": "state",
+        "code": "TX"
+      },
+      "agency": "Internal document - not filed",
+      "form": null,
+      "official_url": "https://www.sba.gov/business-guide/launch-your-business/register-your-business",
+      "diy_fee": null,
+      "typical_service_cost": null,
+      "processing_time_days": null,
+      "depends_on": [
+        "T001"
+      ],
+      "requires_decision": null,
+      "role": "governing_document",
+      "deadline": null,
+      "have_ready": [
+        "Ownership percentages",
+        "How profit is distributed",
+        "What happens if an owner leaves"
+      ],
+      "common_mistakes": [
+        "Skipping it because a single-member LLC 'does not need one' - the bank will still ask."
+      ],
+      "confidence": 1.0,
+      "needs_professional": false,
+      "status": "ready",
+      "review": null,
+      "sources": [
+        {
+          "url": "https://www.sba.gov/business-guide/launch-your-business/register-your-business",
+          "tier": 2,
+          "title": "SBA - Register your business",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        }
+      ]
+    },
+    {
+      "id": "T003",
+      "title": "Apply for an EIN from the IRS",
+      "why": "The EIN is the business's tax identity and is required to open a business bank account without using a Social Security number.",
+      "jurisdiction": {
+        "level": "federal",
+        "code": "US"
+      },
+      "agency": "IRS",
+      "form": {
+        "sources": [
+          {
+            "url": "https://www.irs.gov/forms-pubs/about-form-ss-4",
+            "tier": 1,
+            "title": "IRS - About Form SS-4",
+            "retrieved_at": "2026-09-16",
+            "effective_date": null,
+            "quote": "Use Form SS-4 to apply for an employer identification number (EIN)."
+          }
+        ],
+        "number": "Form SS-4",
+        "agency": "IRS"
+      },
+      "official_url": "https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online",
+      "diy_fee": {
+        "sources": [
+          {
+            "url": "https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online",
+            "tier": 1,
+            "title": "IRS - Apply for an EIN Online",
+            "retrieved_at": "2026-09-16",
+            "effective_date": null,
+            "quote": "Beware of websites that charge for an EIN. You never have to pay a fee for an EIN."
+          }
+        ],
+        "amount_usd": 0.0
+      },
+      "typical_service_cost": null,
+      "processing_time_days": [
+        0,
+        1
+      ],
+      "depends_on": [
+        "T001"
+      ],
+      "requires_decision": null,
+      "role": "ein",
+      "deadline": null,
+      "have_ready": [
+        "Exact legal entity name as filed",
+        "Formation date and state",
+        "Responsible party SSN or ITIN"
+      ],
+      "common_mistakes": [
+        "Paying a service for this. The IRS issues an EIN at no charge and the online application takes minutes.",
+        "Applying before the entity is formed, which produces an EIN attached to the wrong name."
+      ],
+      "confidence": 1.0,
+      "needs_professional": false,
+      "status": "ready",
+      "review": null,
+      "sources": [
+        {
+          "url": "https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online",
+          "tier": 1,
+          "title": "IRS - Apply for an EIN Online",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        },
+        {
+          "url": "https://www.irs.gov/forms-pubs/about-form-ss-4",
+          "tier": 1,
+          "title": "IRS - About Form SS-4",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        }
+      ]
+    },
+    {
+      "id": "T004",
+      "title": "Open a business bank account",
+      "why": "Commingling personal and business funds is the most common way the liability separation an LLC provides gets argued away.",
+      "jurisdiction": {
+        "level": "federal",
+        "code": "US"
+      },
+      "agency": "Your bank",
+      "form": null,
+      "official_url": "https://www.sba.gov/business-guide/launch-your-business/register-your-business",
+      "diy_fee": null,
+      "typical_service_cost": null,
+      "processing_time_days": null,
+      "depends_on": [
+        "T001",
+        "T002",
+        "T003"
+      ],
+      "requires_decision": null,
+      "role": "bank_account",
+      "deadline": null,
+      "have_ready": [
+        "Filed Certificate of Formation",
+        "EIN letter (CP 575)",
+        "Operating agreement",
+        "Photo ID"
+      ],
+      "common_mistakes": [
+        "Running revenue through a personal account 'just until things settle'."
+      ],
+      "confidence": 1.0,
+      "needs_professional": false,
+      "status": "ready",
+      "review": null,
+      "sources": [
+        {
+          "url": "https://www.sba.gov/business-guide/launch-your-business/register-your-business",
+          "tier": 2,
+          "title": "SBA - Register your business",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        }
+      ]
+    },
+    {
+      "id": "T005",
+      "title": "Set up a Texas franchise tax account and file the annual report",
+      "why": "A Texas LLC has an annual filing with the Comptroller even when it owes no tax. Which filing depends on where the entity sits relative to the no tax due threshold, and missing it is what puts the entity out of good standing.",
+      "jurisdiction": {
+        "level": "state",
+        "code": "TX"
+      },
+      "agency": "Texas Comptroller of Public Accounts",
+      "form": null,
+      "official_url": "https://comptroller.texas.gov/taxes/franchise/",
+      "diy_fee": null,
+      "typical_service_cost": null,
+      "processing_time_days": null,
+      "depends_on": [
+        "T001"
+      ],
+      "requires_decision": null,
+      "role": "state_tax_registration",
+      "deadline": {
+        "sources": [
+          {
+            "url": "https://comptroller.texas.gov/taxes/franchise/",
+            "tier": 1,
+            "title": "Texas Comptroller - Franchise Tax",
+            "retrieved_at": "2026-09-16",
+            "effective_date": null,
+            "quote": "If you are at or below the no tax due threshold, simply file your 2026 Public Information Report or Ownership Report."
+          }
+        ],
+        "rule": "Franchise tax reports are due each May 15. An entity at or below the no tax due threshold files a Public Information Report or Ownership Report rather than a tax report.",
+        "resolved": "2027-05-15",
+        "hard": true,
+        "needs": [],
+        "resolver": "tx_annual_report"
+      },
+      "have_ready": [],
+      "common_mistakes": [
+        "Assuming no tax due means nothing is due. For report years 2024 and later the separate No Tax Due Report was discontinued, but an entity at or below the threshold still files a Public Information Report or Ownership Report.",
+        "Looking up the threshold for the wrong report year. It is set per year."
+      ],
+      "confidence": 0.8,
+      "needs_professional": false,
+      "status": "ready",
+      "review": null,
+      "sources": [
+        {
+          "url": "https://comptroller.texas.gov/taxes/franchise/",
+          "tier": 1,
+          "title": "Texas Comptroller - Franchise Tax",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        }
+      ]
+    },
+    {
+      "id": "T006",
+      "title": "Obtain professional liability and general liability insurance",
+      "why": "An LLC limits owner liability for business debts; it does not cover a claim arising from the work itself.",
+      "jurisdiction": {
+        "level": "federal",
+        "code": "US"
+      },
+      "agency": "Private carrier",
+      "form": null,
+      "official_url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "diy_fee": null,
+      "typical_service_cost": null,
+      "processing_time_days": null,
+      "depends_on": [
+        "T001"
+      ],
+      "requires_decision": null,
+      "role": "insurance",
+      "deadline": null,
+      "have_ready": [],
+      "common_mistakes": [
+        "Assuming the entity itself is the insurance."
+      ],
+      "confidence": 0.7,
+      "needs_professional": true,
+      "status": "awaiting_review",
+      "review": null,
+      "sources": [
+        {
+          "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+          "tier": 2,
+          "title": "SBA - Get business insurance",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D001",
+      "title": "'LLC or S-corp' is two separate questions wearing one coat",
+      "context": "First-time founders almost always arrive asking whether to form an LLC or an S-corp, and the question has no answer as posed because the two words describe different layers of the stack.",
+      "common_misconception": "That an LLC and an S-corp are two entity types to pick between.",
+      "options": [
+        {
+          "name": "LLC (state legal entity)",
+          "what_it_actually_is": "A legal entity created by filing with a state. It determines who is liable for the business's obligations.",
+          "cost": null,
+          "consequence": "By default a single-member LLC is taxed as a sole proprietorship: profit flows to a Schedule C and is subject to self-employment tax."
+        },
+        {
+          "name": "S-corp (federal tax election)",
+          "what_it_actually_is": "An election filed with the IRS on Form 2553 that changes how an existing LLC or corporation is taxed. It creates no entity.",
+          "cost": null,
+          "consequence": "Profit splits into reasonable salary plus distribution, which changes the self-employment tax base, and it adds payroll administration and a separate business return."
+        }
+      ],
+      "what_actually_differs": "The entity decision and the tax-treatment decision are made at different times, with different agencies, on different deadlines. An LLC can make the S-corp election later; the election cannot exist without an entity under it.",
+      "depends_on_facts": [
+        "Annual profit after expenses",
+        "What counts as reasonable salary for this work in this market",
+        "Cost of payroll administration and a second tax return",
+        "Whether the 2553 window for the intended tax year is still open"
+      ],
+      "consequences": "Treating these as one decision is how founders either form an entity they did not need or miss an election window they did. The two decisions are sequenced, not traded off.",
+      "professional_question": "Given my projected profit, at what point does the self-employment tax saved by an S-corp election exceed the payroll and filing cost it adds?",
+      "sources": [
+        {
+          "url": "https://www.irs.gov/forms-pubs/about-form-2553",
+          "tier": 1,
+          "title": "IRS - About Form 2553, Election by a Small Business Corporation",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        },
+        {
+          "url": "https://www.sba.gov/business-guide/launch-your-business/register-your-business",
+          "tier": 2,
+          "title": "SBA - Register your business",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        }
+      ]
+    },
+    {
+      "id": "D002",
+      "title": "Forming in Delaware while living and working in Texas",
+      "context": "Delaware's reputation as the default state of incorporation comes from venture-backed C-corps, and it propagates to solo founders whose situation does not resemble that one.",
+      "common_misconception": "That Delaware formation is a neutral default with no cost.",
+      "options": [
+        {
+          "name": "Form in Texas",
+          "what_it_actually_is": "One filing, one state, one annual report, and the registered agent can be the founder at a Texas street address.",
+          "cost": null,
+          "consequence": "One set of fees and one set of deadlines."
+        },
+        {
+          "name": "Form in Delaware, operate from Texas",
+          "what_it_actually_is": "A Delaware entity that transacts business in Texas generally must also register in Texas as a foreign entity.",
+          "cost": null,
+          "consequence": "Two states' fees, two annual obligations, and a registered agent in Delaware who must be paid because the founder is not there."
+        }
+      ],
+      "what_actually_differs": "Whether the business pays one state or two for the same operation, and whether a paid registered agent becomes mandatory.",
+      "depends_on_facts": [
+        "Whether outside investors have asked for a Delaware entity",
+        "Where the work is actually performed",
+        "Delaware franchise tax and registered agent cost at current rates"
+      ],
+      "consequences": "For a founder whose customers, work, and residence are all in one state, the second state adds recurring cost and a second calendar without changing the liability outcome.",
+      "professional_question": "Does anything in my funding plan over the next 24 months require a Delaware entity, and what does it cost to convert later if it does?",
+      "sources": [
+        {
+          "url": "https://www.sos.state.tx.us/corp/forms_boc.shtml",
+          "tier": 1,
+          "title": "Texas SOS - Business Organizations Code Forms",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        },
+        {
+          "url": "https://www.sba.gov/business-guide/launch-your-business/register-your-business",
+          "tier": 2,
+          "title": "SBA - Register your business",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        }
+      ]
+    }
+  ],
+  "elections": [
+    {
+      "id": "E001",
+      "name": "S corporation election",
+      "what_it_does": "Changes how an existing LLC's profit is taxed by splitting it into reasonable salary and distribution, which changes the self-employment tax base.",
+      "form": {
+        "sources": [
+          {
+            "url": "https://www.irs.gov/forms-pubs/about-form-2553",
+            "tier": 1,
+            "title": "IRS - About Form 2553, Election by a Small Business Corporation",
+            "retrieved_at": "2026-09-16",
+            "effective_date": null,
+            "quote": "About Form 2553, Election by a Small Business Corporation"
+          }
+        ],
+        "number": "Form 2553",
+        "agency": "IRS"
+      },
+      "eligibility": [
+        "A domestic entity with allowable shareholders",
+        "One class of stock or equivalent membership interest",
+        "All owners consent"
+      ],
+      "deadline": {
+        "sources": [
+          {
+            "url": "https://www.irs.gov/instructions/i2553",
+            "tier": 1,
+            "title": "IRS - Instructions for Form 2553",
+            "retrieved_at": "2026-09-16",
+            "effective_date": null,
+            "quote": "No more than 2 months and 15 days after the beginning of the tax year the election is to take effect, or"
+          }
+        ],
+        "rule": "No more than two months and fifteen days after the beginning of the tax year the election is to take effect, or at any time during the preceding tax year.",
+        "resolved": "2026-03-15",
+        "hard": true,
+        "needs": [
+          "tax_year_end"
+        ],
+        "resolver": "form_2553_window"
+      },
+      "admin_cost_note": "Adds payroll administration and a separate business return.",
+      "lost_if_missed": "A late election generally takes effect the following tax year. The IRS does document conditional relief for late elections, so a missed window is not automatically a year lost, but relief is conditional and is not something to plan around.",
+      "professional_question": "I missed (or expect to miss) the window. Do I qualify for late election relief, and what does the filing have to show?",
+      "sources": [
+        {
+          "url": "https://www.irs.gov/instructions/i2553",
+          "tier": 1,
+          "title": "IRS - Instructions for Form 2553",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": "No more than 2 months and 15 days after the beginning of the tax year the election is to take effect, or"
+        },
+        {
+          "url": "https://www.irs.gov/instructions/i2553",
+          "tier": 1,
+          "title": "IRS - Instructions for Form 2553",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": "Relief for Late Elections"
+        }
+      ]
+    },
+    {
+      "id": "E002",
+      "name": "Business start-up cost deduction",
+      "what_it_does": "Allows a portion of costs incurred investigating and setting up the business before it opened to be deducted, with the remainder amortized.",
+      "form": null,
+      "eligibility": [
+        "Costs incurred before the business began operating",
+        "Costs would have been deductible had the business already been active"
+      ],
+      "deadline": null,
+      "admin_cost_note": "Older guidance cites Publication 535, which the IRS discontinued after its 2022 revision. Current material sits in Publication 583 and the Tax Guide for Small Business.",
+      "lost_if_missed": "Receipts discarded before launch cannot be reconstructed later, so this is lost by inaction rather than by decision.",
+      "professional_question": "Which of my pre-launch costs qualify, and how should I be recording them starting today?",
+      "sources": [
+        {
+          "url": "https://www.irs.gov/publications/p583",
+          "tier": 1,
+          "title": "IRS - Publication 583, Starting a Business and Keeping Records",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": "You can elect to deduct up to $5,000 of business start-up costs"
+        },
+        {
+          "url": "https://www.irs.gov/forms-pubs/about-publication-334",
+          "tier": 1,
+          "title": "IRS - About Publication 334, Tax Guide for Small Business",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": "About Publication 334, Tax Guide for Small Business"
+        },
+        {
+          "url": "https://www.irs.gov/forms-pubs/about-publication-535",
+          "tier": 1,
+          "title": "IRS - About Publication 535, Business Expenses",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": "Note: We have discontinued Publication 535, Business Expenses; the last revision was for 2022."
+        }
+      ]
+    },
+    {
+      "id": "E003",
+      "name": "Business use of home deduction",
+      "what_it_does": "Allows a portion of home expenses to be attributed to a space used regularly and exclusively as the principal place of business.",
+      "form": null,
+      "eligibility": [
+        "Regular and exclusive business use of the space",
+        "The space is the principal place of business"
+      ],
+      "deadline": null,
+      "admin_cost_note": null,
+      "lost_if_missed": "Contemporaneous records of the space and its use are far harder to assemble after the fact than to keep from the start.",
+      "professional_question": "Does my workspace meet the regular-and-exclusive test, and which calculation method fits my situation?",
+      "sources": [
+        {
+          "url": "https://www.irs.gov/forms-pubs/about-publication-587",
+          "tier": 1,
+          "title": "IRS - About Publication 587, Business Use of Your Home",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": null
+        }
+      ]
+    },
+    {
+      "id": "E004",
+      "name": "Solo 401(k) or SEP plan",
+      "what_it_does": "Creates a retirement plan for an owner-only business, with contribution room well above an individual retirement account.",
+      "form": null,
+      "eligibility": [
+        "Self-employment income",
+        "No employees other than a spouse"
+      ],
+      "deadline": {
+        "sources": [
+          {
+            "url": "https://www.irs.gov/publications/p560",
+            "tier": 1,
+            "title": "IRS - Publication 560, Retirement Plans for Small Business",
+            "retrieved_at": "2026-09-16",
+            "effective_date": null,
+            "quote": "You can make deductible contributions for a tax year up to the due date of your return (plus extensions) for that year."
+          }
+        ],
+        "rule": "Deductible contributions for a tax year may be made up to the due date of the return, plus extensions, for that year. Establishment deadlines differ by plan type and must be confirmed per plan.",
+        "resolved": null,
+        "hard": true,
+        "needs": [],
+        "resolver": null
+      },
+      "admin_cost_note": "Some plan types require an annual filing once assets pass a threshold.",
+      "lost_if_missed": "A plan not established within its window cannot be applied retroactively to that tax year.",
+      "professional_question": "Which plan type fits my income, and what is the establishment deadline for the current tax year?",
+      "sources": [
+        {
+          "url": "https://www.irs.gov/publications/p560",
+          "tier": 1,
+          "title": "IRS - Publication 560, Retirement Plans for Small Business",
+          "retrieved_at": "2026-09-16",
+          "effective_date": null,
+          "quote": "You can make deductible contributions for a tax year up to the due date of your return (plus extensions) for that year."
+        }
+      ]
+    }
+  ],
+  "generated_at": "2026-09-16"
+}
