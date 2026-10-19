@@ -1,6 +1,10 @@
 # Local planning notes
 roadmap.md
+CONSULTING-SITE-PROPOSAL.md
 
 .databricks
 .DS_Store
 .gitignore
+
+# Generated static website
+/dist/

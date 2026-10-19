@@ -1,0 +1,768 @@
+{
+ "ranAt": "2026-10-18T03:21:12.877Z",
+ "commit": "571a9f0",
+ "uncommittedChanges": false,
+ "python": "Python 3.12.2",
+ "suites": [
+  {
+   "id": "gate",
+   "title": "The gate",
+   "description": "What the gate must refuse"
+  },
+  {
+   "id": "repair",
+   "title": "Repair loop",
+   "description": "Scoping and termination"
+  },
+  {
+   "id": "audit",
+   "title": "Audit trail",
+   "description": "The record survives"
+  },
+  {
+   "id": "corpus",
+   "title": "Retrieval corpus",
+   "description": "Chunk identity and filters"
+  },
+  {
+   "id": "scenarios",
+   "title": "Scenarios",
+   "description": "Whole founder profiles, end to end"
+  }
+ ],
+ "categories": [
+  {
+   "id": "baseline",
+   "title": "The known-good kit passes",
+   "why": "Without a passing baseline, every refusal below could be a gate that refuses everything."
+  },
+  {
+   "id": "advice",
+   "title": "Gives advice or promises to act",
+   "why": "Groundwork routes and cites. A confident recommendation is unlicensed advice, and filing is a capability it does not have."
+  },
+  {
+   "id": "evidence",
+   "title": "Claims without evidence",
+   "why": "A citation proves a page was consulted, not that it says what the claim says."
+  },
+  {
+   "id": "scope",
+   "title": "Answers outside its scope",
+   "why": "A founder it cannot serve gets a referral, not a kit. Another state’s rule must never answer a Texas question."
+  },
+  {
+   "id": "structure",
+   "title": "Steps in an order that fails",
+   "why": "An EIN application filed before the entity exists fails at the IRS. Order is not cosmetic."
+  },
+  {
+   "id": "certainty",
+   "title": "Invents certainty",
+   "why": "An unknown stays unknown. A guessed deadline is worse than no deadline."
+  },
+  {
+   "id": "repair",
+   "title": "Repair that spreads or never stops",
+   "why": "Fix only what failed, stop when it passes, and escalate rather than return a bad kit."
+  },
+  {
+   "id": "record",
+   "title": "Loses the record",
+   "why": "Months later the question is what the system saw on the day it answered."
+  },
+  {
+   "id": "drift",
+   "title": "Rests on stale or shifted sources",
+   "why": "Agencies edit their pages. The specific line a claim rests on is tracked, not the page."
+  }
+ ],
+ "checks": [
+  {
+   "suite": "gate",
+   "name": "golden kit clears strict mode",
+   "passed": true,
+   "detail": null,
+   "category": "baseline"
+  },
+  {
+   "suite": "gate",
+   "name": "blocks advisory language",
+   "passed": true,
+   "detail": null,
+   "category": "advice"
+  },
+  {
+   "suite": "gate",
+   "name": "blocks promising to file on the founder's behalf",
+   "passed": true,
+   "detail": null,
+   "category": "advice"
+  },
+  {
+   "suite": "gate",
+   "name": "blocks out-of-jurisdiction task",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "gate",
+   "name": "blocks a dependency cycle",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "gate",
+   "name": "blocks out-of-scope founder",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "gate",
+   "name": "blocks a kit with no tax inventory",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "gate",
+   "name": "uncited fee cannot be constructed",
+   "passed": true,
+   "detail": null,
+   "category": "evidence"
+  },
+  {
+   "suite": "gate",
+   "name": "low-confidence task must escalate",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "gate",
+   "name": "a fee contradicting its own quoted evidence is blocked",
+   "passed": true,
+   "detail": null,
+   "category": "evidence"
+  },
+  {
+   "suite": "gate",
+   "name": "quoted evidence absent from the retrieved page is blocked",
+   "passed": true,
+   "detail": null,
+   "category": "evidence"
+  },
+  {
+   "suite": "gate",
+   "name": "an unfetched source on an election deadline is blocked",
+   "passed": true,
+   "detail": null,
+   "category": "evidence"
+  },
+  {
+   "suite": "gate",
+   "name": "every claim kind is reachable",
+   "passed": true,
+   "detail": null,
+   "category": "baseline"
+  },
+  {
+   "suite": "gate",
+   "name": "advisory language in task.title is caught",
+   "passed": true,
+   "detail": null,
+   "category": "advice"
+  },
+  {
+   "suite": "gate",
+   "name": "advisory language in task.have_ready is caught",
+   "passed": true,
+   "detail": null,
+   "category": "advice"
+  },
+  {
+   "suite": "gate",
+   "name": "a task presupposing an unrecorded decision is blocked",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "gate",
+   "name": "a task presupposing an unbriefed decision is blocked",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "gate",
+   "name": "sells='mixed' is routed out of scope",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "gate",
+   "name": "touches_client_funds=True is routed out of scope",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "gate",
+   "name": "touches_regulated_data=True is routed out of scope",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "gate",
+   "name": "a declared unknown is not knowable",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "gate",
+   "name": "an absent field is not knowable",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "gate",
+   "name": "resolvable deadlines ship as dates",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "gate",
+   "name": "a deadline contradicting its own rule is blocked",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "gate",
+   "name": "a task needing review cannot call itself ready",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "gate",
+   "name": "a recorded review lets it become ready",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "repair",
+   "name": "clean kit needs no repair",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "advisory language triggers repair",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "exactly one object is sent back",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "the right object is sent back",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "untouched tasks are not resent",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "the repair prompt carries the finding",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "the repair prompt forbids widening scope",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "two broken objects produce two repairs",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "repairs are a subset of the plan",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "a dependency cycle is reported as structural",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "gives up and escalates",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "escalation states nothing was sent",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "the loop repairs and passes",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "it stops as soon as it passes",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "only the broken object was attempted",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "a loop that cannot converge terminates",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "it terminates within the round budget",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "it escalates rather than returning a bad kit",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "attempts per object are bounded",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "an unrepaired plan is never returned as passed",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "repair",
+   "name": "merge replaces exactly one object",
+   "passed": true,
+   "detail": null,
+   "category": "repair"
+  },
+  {
+   "suite": "audit",
+   "name": "events are recorded in order",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "the corpus state is stamped on the run",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "a summary line is appended to the index",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "a crash does not lose prior events",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "the crash itself is recorded",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "the run still closes cleanly",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "the exception is not swallowed",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "earlier runs survive later ones",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "runs are listed newest first",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "every tier is sectioned",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "the quoted fee line is shown as evidence",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "the corpus digest is recorded in the kit",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "it tells the founder how to re-check",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "audit",
+   "name": "unverified sources are marked, not hidden",
+   "passed": true,
+   "detail": null,
+   "category": "record"
+  },
+  {
+   "suite": "corpus",
+   "name": "rows sharing an opening get distinct keys",
+   "passed": true,
+   "detail": null,
+   "category": "drift"
+  },
+  {
+   "suite": "corpus",
+   "name": "a key survives an edit to the row's value",
+   "passed": true,
+   "detail": null,
+   "category": "drift"
+  },
+  {
+   "suite": "corpus",
+   "name": "both same-prefix rows are retained",
+   "passed": true,
+   "detail": null,
+   "category": "drift"
+  },
+  {
+   "suite": "corpus",
+   "name": "an identical line repeated is still deduped",
+   "passed": true,
+   "detail": null,
+   "category": "drift"
+  },
+  {
+   "suite": "corpus",
+   "name": "jurisdiction filter excludes other states",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "corpus",
+   "name": "chunks carry an effective_date field",
+   "passed": true,
+   "detail": null,
+   "category": "drift"
+  },
+  {
+   "suite": "corpus",
+   "name": "as_of drops guidance that takes effect later",
+   "passed": true,
+   "detail": null,
+   "category": "drift"
+  },
+  {
+   "suite": "corpus",
+   "name": "stale chunks can be excluded from retrieval",
+   "passed": true,
+   "detail": null,
+   "category": "drift"
+  },
+  {
+   "suite": "scenarios",
+   "name": "a regulated industry is escalated, not answered",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "hiring within the year is escalated, not answered",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "selling physical goods is escalated, not answered",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "a mixed goods and services business is escalated, not answered",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "holding client funds is escalated, not answered",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "handling regulated client data is escalated, not answered",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "raising money now is escalated, not answered",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "operating in two states is escalated, not answered",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "a solo Texas consultant is in scope",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "an out-of-scope profile blocks the whole kit",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  },
+  {
+   "suite": "scenarios",
+   "name": "the kit contains a entity_formation task",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "scenarios",
+   "name": "the kit contains a ein task",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "scenarios",
+   "name": "the kit contains a bank_account task",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "scenarios",
+   "name": "the kit contains a state_tax_registration task",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "scenarios",
+   "name": "dropping a required role blocks the kit",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "scenarios",
+   "name": "an EIN that does not follow formation is blocked",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "scenarios",
+   "name": "a bank account that does not follow the EIN is blocked",
+   "passed": true,
+   "detail": null,
+   "category": "structure"
+  },
+  {
+   "suite": "scenarios",
+   "name": "Texas reporting resolves to a May 15",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "scenarios",
+   "name": "Texas reporting resolves to a future date",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "scenarios",
+   "name": "the 2553 window is two months and fifteen days after the tax year starts",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "scenarios",
+   "name": "the 2553 window follows a non-calendar tax year",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "scenarios",
+   "name": "an unknown tax year yields no date, not a guessed one",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "scenarios",
+   "name": "a deadline names the fact it is waiting on",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "scenarios",
+   "name": "and resolves once the fact is known",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "scenarios",
+   "name": "the shipped kit carries real dates",
+   "passed": true,
+   "detail": null,
+   "category": "certainty"
+  },
+  {
+   "suite": "scenarios",
+   "name": "the fee line is the top hit for its own query",
+   "passed": true,
+   "detail": null,
+   "category": "evidence"
+  },
+  {
+   "suite": "scenarios",
+   "name": "the top hit is a primary source",
+   "passed": true,
+   "detail": null,
+   "category": "evidence"
+  },
+  {
+   "suite": "scenarios",
+   "name": "a federal form query reaches the IRS page",
+   "passed": true,
+   "detail": null,
+   "category": "evidence"
+  },
+  {
+   "suite": "scenarios",
+   "name": "no other state's guidance answers a Texas query",
+   "passed": true,
+   "detail": null,
+   "category": "scope"
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "lily-ai-engineering-workbench",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "check": "node --test tests/*.test.mjs && node scripts/build-site.mjs",
+    "dev": "node scripts/dev.mjs",
+    "export:evals": "node scripts/export-eval-run.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
