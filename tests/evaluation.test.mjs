@@ -24,7 +24,7 @@ test('an unknown check name fails loudly instead of landing in a default bucket'
 });
 
 test('the committed run covers every suite and every category', async () => {
-  const run = JSON.parse(await readFile(new URL('../web/evaluation/run.json', import.meta.url), 'utf8'));
+  const run = JSON.parse(await readFile(new URL('../src/data/evaluation-run.json', import.meta.url), 'utf8'));
   for (const suite of run.suites) assert.ok(run.checks.some((check) => check.suite === suite.id), suite.id);
   for (const category of run.categories) assert.ok(run.checks.some((check) => check.category === category.id), category.id);
 });

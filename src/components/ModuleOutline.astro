@@ -1,0 +1,53 @@
+---
+/**
+ * One module's page: its description, any interactive lesson, and the full
+ * syllabus outline from modules/<id>.md. Rendered by src/pages/library/[module].astro
+ * and its /zh/ twin.
+ */
+import { readyTopics } from '../lib/catalog.mjs';
+import { libraryUrl, sourceUrl } from '../lib/url';
+
+interface Props {
+  module: import('../lib/catalog.mjs').Module;
+  locale?: string;
+}
+
+const { module, locale } = Astro.props;
+const zh = locale === 'zh';
+const t = zh
+  ? { kicker: `L${module.layer} · ${module.layerChinese} · ${module.priority}`, outline: '原始章节大纲', ahead: '本章知识点', source: '阅读章节原文 ↗', topics: '个主题', planned: '计划中', explore: '在注意力课程中探索 ↗', ready: '交互课程 · 已上线', lesson: '看得见的注意力', lessonText: '掩码 → Q/K/V → MHA、GQA 与 MQA。三个相互关联的实验，一个完整的心智模型。', none: '本模块的交互课程尚未构建。下方是完整的章节大纲。' }
+  : { kicker: `L${module.layer} · ${module.layerTitle} · ${module.priority}`, outline: 'Original chapter outline', ahead: 'The topics ahead', source: 'Read chapter source ↗', topics: 'topics', planned: 'Planned', explore: 'Explore in attention ↗', ready: 'Interactive · Ready to explore', lesson: 'Attention, made visible', lessonText: 'Masks → Q/K/V → MHA, GQA & MQA. Three connected experiments, one mental model.', none: 'Interactive lessons for this module have not been built yet. The full chapter outline is below.' };
+const lessons = [...new Set(module.sections.flatMap((section) => section.topics.map((topic) => readyTopics[topic.id]).filter(Boolean)))];
+---
+
+<div class="wb not-content">
+  <p class="module-kicker-line"><span class="eyebrow">{t.kicker}</span></p>
+  <p class="module-lead">{zh ? module.title : module.chinese}</p>
+
+  {lessons.includes('attention') ? (
+    <a class="lesson-feature" href={libraryUrl('attention', locale)}>
+      <div class="mini-mask" aria-hidden="true">{Array.from({ length: 36 }, (_, index) => <i class={index % 6 <= Math.floor(index / 6) ? 'open' : ''}></i>)}</div>
+      <div><span class="status ready">{t.ready}</span><h2>{t.lesson}</h2><p>{t.lessonText}</p></div>
+      <span class="circle-arrow" aria-hidden="true">↗</span>
+    </a>
+  ) : (
+    <p class="scope-note">{t.none}</p>
+  )}
+
+  <section class="syllabus">
+    <div class="section-heading"><div><span class="eyebrow">{t.outline}</span><h2>{t.ahead}</h2></div><a class="text-link" href={sourceUrl(`modules/${module.id}.md`)}>{t.source}</a></div>
+    {module.sections.map((section) => (
+      <details class="syllabus-section" open>
+        <summary><span>{section.id}</span><strong lang={zh ? 'zh-CN' : 'en'}>{zh ? section.title : section.english}</strong><span>{section.topics.length} {t.topics}</span></summary>
+        <ul>
+          {section.topics.map((topic) => (
+            <li>
+              <code>{topic.id}</code><span lang={zh ? 'zh-CN' : 'en'}>{zh ? topic.title : topic.english}</span>
+              <small class="topic-status">{readyTopics[topic.id] ? <a href={libraryUrl(readyTopics[topic.id], locale)}>{t.explore}</a> : t.planned}</small>
+            </li>
+          ))}
+        </ul>
+      </details>
+    ))}
+  </section>
+</div>

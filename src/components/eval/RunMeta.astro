@@ -1,0 +1,13 @@
+---
+/** The one-line provenance of the run: pass count, suites, date, commit. */
+import { run, passed, total, runDate } from './run';
+---
+
+<div class="wb not-content">
+  <div class="lesson-meta run-meta">
+    <span>{passed}/{total} checks passing</span>
+    <span>{run.suites.length} suites</span>
+    <span>Run {runDate}</span>
+    <span>Commit {run.commit ?? 'unknown'}{run.uncommittedChanges ? ' + local changes' : ''}</span>
+  </div>
+</div>

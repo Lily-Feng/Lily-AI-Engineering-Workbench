@@ -1,0 +1,16 @@
+---
+/** English module pages, one per modules/<id>.md. The /zh/ twin is src/pages/zh/library/[module].astro. */
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import ModuleOutline from '../../components/ModuleOutline.astro';
+import { readCatalog } from '../../lib/catalog.mjs';
+
+export async function getStaticPaths() {
+  return (await readCatalog()).map((module) => ({ params: { module: module.id }, props: { module } }));
+}
+
+const { module } = Astro.props;
+---
+
+<StarlightPage frontmatter={{ title: `${module.id} · ${module.title}`, description: module.description }}>
+  <ModuleOutline module={module} />
+</StarlightPage>

@@ -1,0 +1,91 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Least privilege at the top; jobs widen only where they must.
+permissions:
+  contents: read
+
+# One deployment at a time. In-progress runs finish rather than being cancelled,
+# so a half-uploaded artifact never becomes the live site.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # Pull requests are validated but never deployed.
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Type and component diagnostics
+        run: npm run check
+
+      # `astro build` runs starlight-links-validator, so a broken internal
+      # link fails the pull request here rather than shipping.
+      - name: Build
+        run: npm run build
+
+  build:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Type and component diagnostics
+        run: npm run check
+
+      - name: Build
+        run: npm run build
+
+      # No `enablement: true` here. GITHUB_TOKEN can hold `pages: write`, but
+      # CREATING a Pages site needs repo-admin rights it does not have, so the
+      # call fails with "Resource not accessible by integration". Pages has to
+      # be switched on once by hand:
+      #   Settings -> Pages -> Build and deployment -> Source -> GitHub Actions
+      - uses: actions/configure-pages@v6
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

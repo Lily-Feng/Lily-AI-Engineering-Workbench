@@ -4,19 +4,37 @@ An open, practical knowledge base for becoming a well-rounded AI engineer: under
 
 The [2026 knowledge framework](modules/) has **18 modules in five layers**, with numbered topics, interview questions, and a hands-on project for each module. `P0` means core practice, `P1` means deeper systems work, and `P2` marks optional source-level or specialized infrastructure depth. The supplied 18 chapters are classified P0 or P1. These priorities guide learning order, not importance. The chapters are a syllabus and question bank; they do not claim that every project has been built.
 
-## Interactive website · 交互式学习网站
+## Website · 网站
 
-The website follows the same **18 modules and five layers**, with an **English / 中文** switch, light and dark themes, concept search, and direct links to each module. Module 02 has the first detailed topic: **Attention, made visible** — interactive masks, Q/K/V arithmetic, a MHA/GQA/MQA cache comparison, and two self-checks. Other topics retain their syllabus outlines and are clearly marked as planned.
+**https://lily-feng.github.io/Lily-AI-Engineering-Workbench/** — demos and notes on testing whether an AI system is ready, with the 18-module library behind them, in English and 中文. Built with [Astro Starlight](https://starlight.astro.build/), like the [Reinforcement Learning](https://lily-feng.github.io/Reinforcement-Learning/) site; every push to `main` is checked and deployed by [GitHub Actions](.github/workflows/pages.yml).
+
+### Editing without a local setup
+
+Most changes are text, and text lives in Markdown. Edit the file on github.com (or press `.` in the repository for the web editor) and commit; the site updates a few minutes later. A pull request is built and link-checked but not deployed.
+
+| To change | Edit |
+| --- | --- |
+| Homepage | `src/content/docs/index.mdx` (中文: `src/content/docs/zh/index.mdx`) |
+| Evaluation walkthrough | `src/content/docs/demos/evaluation.mdx` |
+| Library introduction | `src/content/docs/library/index.mdx` |
+| A module's syllabus, sidebar entry, or outline page | `modules/NN.md` — pages are generated from it; new Chinese topic titles need an English entry in `src/data/syllabus-english.json` |
+| Sidebar groups | `astro.config.mjs` |
+
+A Chinese page is a file at the same path under `src/content/docs/zh/`. Without one, the Chinese site shows the English page with a “not yet translated” notice.
+
+### Running it locally
+
+Needed for layout, components, or interactive demos. Requires Node.js 24 (`.nvmrc`).
 
 ```bash
-npm run dev             # builds and serves http://127.0.0.1:4173
-npm run check           # math/catalog tests and static build
-npm run build           # writes the standalone website to dist/
+npm ci
+npm run dev             # http://localhost:4321/Lily-AI-Engineering-Workbench/
+npm run check           # unit tests + astro check (types and components)
+npm run build           # static site in dist/; fails on a broken internal link
+npm run export:evals    # re-run Groundwork's evals into src/data/evaluation-run.json (needs Python); commit the result
 ```
 
-Requires Node.js 20 or newer. There are **no npm dependencies to install** and no build-time network calls. Serve `dist/` with any static file server; the relative asset paths also work under a GitHub Pages project path. Open `?module=02&topic=attention&lang=en` or `?module=02&topic=attention&lang=zh` for the first lesson. This local implementation has not been published.
-
-See [website development](web/README.md) for the structure, lesson template, and recommended expansion order.
+The build fails rather than shipping a wrong page when a chapter in `modules/` is malformed, an internal link is broken, or the walkthrough cites a check the committed eval run does not contain. Every count on the evaluation pages is read from `src/data/evaluation-run.json`.
 
 ## 知识目录
 
@@ -39,7 +57,7 @@ Read the [learning roadmap](LEARNING-ROADMAP.md) for the suggested integrated pr
 | [Groundwork](projects/groundwork/README.md) | A working, partly implemented agent case study with source validation, bounded repair, and evals | 05, 06, 12, 14, 17 |
 | [Claude architect study guide](references/claude-architect/README.md) | Vendor-specific supplementary reading on solution design and enterprise delivery | 03, 06, 14, 16, 17, 18 |
 
-This repository contains Markdown, source code, and a static learning website. The old cross-connect taxonomy, unrelated cloud/data-platform notes, and stale glossary have been removed. For notes on cloud and data platforms, see [Calm Data and AI](https://github.com/Lily-Feng/Calm.Data.and.AI).
+This repository contains Markdown, source code, and the website. The old cross-connect taxonomy, unrelated cloud/data-platform notes, and stale glossary have been removed. For notes on cloud and data platforms, see [Calm Data and AI](https://github.com/Lily-Feng/Calm.Data.and.AI).
 
 ## Contribute a note
 

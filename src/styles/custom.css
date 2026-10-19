@@ -1,0 +1,32 @@
+/* Site-wide overrides layered on top of Starlight's defaults: the workbench's
+   quiet green in place of Starlight's default accent, and serif display type. */
+
+:root {
+  --sl-content-width: 52rem;
+  --sl-color-accent-low: #1e3a2c;
+  --sl-color-accent: #4f9a78;
+  --sl-color-accent-high: #c4e7ce;
+  --wb-display: Georgia, 'Noto Serif SC', 'Songti SC', serif;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d6e8dc;
+  --sl-color-accent: #286453;
+  --sl-color-accent-high: #173d32;
+}
+
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.hero h1,
+h1#_top {
+  font-family: var(--wb-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Wide tables scroll inside their own container. */
+.sl-markdown-content table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}

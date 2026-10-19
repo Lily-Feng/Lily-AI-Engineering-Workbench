@@ -1,0 +1,24 @@
+---
+/** The nine failure-mode cards. Selecting one filters <CheckList /> on the same page. */
+import { run, countIn } from './run';
+---
+
+<div class="wb not-content">
+  <div class="failure-grid">
+    {run.categories.map((category) => (
+      <button class="failure-card" type="button" data-category={category.id} aria-pressed="false">
+        <span class="failure-count">{countIn(category.id)}</span>
+        <strong>{category.title}</strong>
+        <span>{category.why}</span>
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.failure-card').forEach((button) => button.addEventListener('click', () => {
+    const selected = button.getAttribute('aria-pressed') !== 'true';
+    document.querySelectorAll('.failure-card').forEach((item) => item.setAttribute('aria-pressed', String(selected && item === button)));
+    document.dispatchEvent(new CustomEvent('wb:category', { detail: selected ? button.dataset.category : null }));
+  }));
+</script>

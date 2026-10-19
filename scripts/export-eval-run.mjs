@@ -1,11 +1,13 @@
-// Runs every Groundwork eval suite and writes web/evaluation/run.json for the walkthrough.
-// Run deliberately (npm run export:evals) and commit the result; the site build only copies it.
+// Runs every Groundwork eval suite and writes src/data/evaluation-run.json for the walkthrough.
+// Run deliberately (npm run export:evals) and commit the result; the site build only reads it,
+// so CI never needs Python.
 import { execFileSync, spawnSync } from 'node:child_process';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import { root } from './build-site.mjs';
+import { fileURLToPath } from 'node:url';
 import { suites, categories, parseSuite } from './eval-run.mjs';
 
+const root = fileURLToPath(new URL('../', import.meta.url));
 const project = join(root, 'projects/groundwork');
 const python = process.env.PYTHON ?? 'python3';
 const git = (...args) => { try { return execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim(); } catch { return null; } };
@@ -27,7 +29,7 @@ const run = {
   categories: categories.map(([id, title, why]) => ({ id, title, why })),
   checks,
 };
-await mkdir(join(root, 'web/evaluation'), { recursive: true });
-await writeFile(join(root, 'web/evaluation/run.json'), `${JSON.stringify(run, null, 1)}\n`);
+await mkdir(join(root, 'src/data'), { recursive: true });
+await writeFile(join(root, 'src/data/evaluation-run.json'), `${JSON.stringify(run, null, 1)}\n`);
 const failed = checks.filter((check) => !check.passed).length;
 console.log(`Exported ${checks.length} checks across ${suites.length} suites; ${failed} failing.`);

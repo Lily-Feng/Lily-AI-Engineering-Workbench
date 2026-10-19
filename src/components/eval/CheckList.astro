@@ -1,0 +1,72 @@
+---
+/**
+ * Every check in the run, filterable by suite, by failure mode (from
+ * <FailureModes />), and by text. Unfiltered, it previews the first rows.
+ */
+import { run, total, suiteTitle, categoryTitle } from './run';
+
+const preview = 12;
+---
+
+<div class="wb not-content" id="checks" data-preview={preview} data-total={total}>
+  <div class="catalog-tools">
+    <div class="layer-filters" role="group" aria-label="Filter by suite">
+      <button class="filter active" type="button" data-suite="all" aria-pressed="true">All suites</button>
+      {run.suites.map((suite) => <button class="filter" type="button" data-suite={suite.id} aria-pressed="false">{suite.title}</button>)}
+    </div>
+    <label class="search"><span aria-hidden="true">⌕</span><span class="sr-only">Search checks</span><input type="search" placeholder="Find a check…" autocomplete="off" /></label>
+  </div>
+  <p class="results-count" role="status"></p>
+  <ul class="check-list">
+    {run.checks.map((check) => (
+      <li data-suite={check.suite} data-category={check.category} data-search={check.name.toLowerCase()} data-category-title={categoryTitle[check.category]}>
+        <span class:list={['check-mark', check.passed ? 'pass' : 'fail']} aria-label={check.passed ? 'Passed' : 'Failed'}>{check.passed ? '✓' : '✕'}</span>
+        <span class="check-name">{check.name}{check.detail && <small>{check.detail}</small>}</span>
+        <span class="check-meta">{suiteTitle[check.suite]} · {categoryTitle[check.category]}</span>
+      </li>
+    ))}
+  </ul>
+  <button class="text-link show-all" type="button">Show all {total} checks ↓</button>
+  <p class="scope-note">Exported by <code>scripts/export-eval-run.mjs</code> from {run.python}. The export fails if a suite’s reported count disagrees with the checks it printed, or if a check has no failure mode.</p>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('#checks')!;
+  const preview = Number(root.dataset.preview);
+  const total = Number(root.dataset.total);
+  const search = root.querySelector('input')!;
+  const rows = [...root.querySelectorAll<HTMLLIElement>('.check-list li')];
+  let suite = 'all';
+  let category: string | null = null;
+  let expanded = false;
+
+  function filter() {
+    const query = search.value.trim().toLowerCase();
+    // Unfiltered, the list previews a few rows; any filter or search shows every match.
+    const collapsed = !expanded && suite === 'all' && !category && !query;
+    let shown = 0;
+    for (const row of rows) {
+      const match = (suite === 'all' || row.dataset.suite === suite) && (!category || row.dataset.category === category) && row.dataset.search!.includes(query);
+      if (match) shown++;
+      row.hidden = !match || (collapsed && shown > preview);
+    }
+    root.querySelector<HTMLElement>('.show-all')!.hidden = !collapsed;
+    const label = rows.find((row) => row.dataset.category === category)?.dataset.categoryTitle;
+    const scope = [label, query && `“${search.value.trim()}”`].filter(Boolean).join(' · ');
+    root.querySelector('.results-count')!.textContent = collapsed ? `Showing ${preview} of ${total} checks` : `${shown} of ${total} checks${scope ? ` · ${scope}` : ''}`;
+  }
+
+  root.querySelectorAll<HTMLButtonElement>('[data-suite]').forEach((button) => button.addEventListener('click', () => {
+    suite = button.dataset.suite!;
+    root.querySelectorAll('[data-suite]').forEach((item) => { item.classList.toggle('active', item === button); item.setAttribute('aria-pressed', String(item === button)); });
+    filter();
+  }));
+  document.addEventListener('wb:category', (event) => {
+    category = (event as CustomEvent<string | null>).detail;
+    filter();
+    if (category) root.scrollIntoView({ block: 'start' });
+  });
+  search.addEventListener('input', filter);
+  root.querySelector('.show-all')!.addEventListener('click', () => { expanded = true; filter(); });
+  filter();
+</script>

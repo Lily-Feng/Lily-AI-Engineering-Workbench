@@ -1,9 +1,5 @@
-const params = new URLSearchParams(location.search);
-let stored;
-try { stored = localStorage.getItem('workbench-language'); } catch {}
-export const language = (params.get('lang') || stored) === 'zh' ? 'zh' : 'en';
-document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
-try { localStorage.setItem('workbench-language', language); } catch {}
+// Starlight sets <html lang> from the page's locale (/zh/... is zh-CN).
+export const language = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
 
 // Whole phrases preserve natural Chinese rather than translating individual words.
 const phrases = {
@@ -152,14 +148,4 @@ export function localize(root = document.body) {
       for (const attr of ['placeholder', 'aria-label', 'title']) if (element.hasAttribute(attr)) element.setAttribute(attr, translate(element.getAttribute(attr)));
     });
   }
-  // Keep language in shareable URLs and across every module navigation.
-  root.querySelectorAll('a[href]').forEach((link) => {
-    const raw = link.getAttribute('href');
-    if (raw.startsWith('#')) return;
-    const url = new URL(raw, location.href);
-    if (url.origin === location.origin && (url.pathname === location.pathname || url.pathname.endsWith('/') || url.pathname.endsWith('/index.html'))) {
-      url.searchParams.set('lang', language);
-      link.href = url.pathname + url.search + url.hash;
-    }
-  });
 }

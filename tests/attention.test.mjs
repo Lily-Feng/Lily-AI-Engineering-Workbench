@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canAttend, attentionRow, kvCacheBytes, values } from '../web/assets/attention.mjs';
-import { readCatalog } from '../scripts/build-site.mjs';
+import { canAttend, attentionRow, kvCacheBytes, values } from '../src/demos/attention/attention.mjs';
+import { readCatalog } from '../src/lib/catalog.mjs';
 
 test('causal, bidirectional, and prefix masks preserve their boundaries', () => {
   for (let q = 0; q < 6; q++) for (let k = 0; k < 6; k++) {

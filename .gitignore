@@ -2,9 +2,19 @@
 roadmap.md
 CONSULTING-SITE-PROPOSAL.md
 
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+
+# environment variables
+.env
+.env.production
+
 .databricks
 .DS_Store
-.gitignore
-
-# Generated static website
-/dist/

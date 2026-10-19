@@ -1,0 +1,56 @@
+---
+/**
+ * A Markdown checklist built from the nine failure modes, generated in the
+ * browser. Nothing is sent anywhere. Edit the questions here.
+ */
+import { run, total } from './run';
+
+const questions: Record<string, string> = {
+  baseline: 'Does a known-good output pass? Keep one, and run it first.',
+  advice: 'What must the system never say or promise? Write a case with that phrasing in every user-visible field.',
+  evidence: 'Is each factual claim tied to a source, and is the quoted text actually on the page you retrieved?',
+  scope: 'Which users or requests should get a referral instead of an answer? Write one case per risk flag.',
+  structure: 'Which steps only work in a particular order? Write the broken order as a case.',
+  certainty: 'When an input is unknown, does it stay unknown, or become a default?',
+  repair: 'When you retry a failure, do you retry only what failed? Does the loop stop and escalate?',
+  record: 'Months from now, can you reconstruct what the system saw when it answered?',
+  drift: 'When a source changes, can you name the answers that rest on the changed line?',
+};
+for (const category of run.categories) if (!questions[category.id]) throw new Error(`ChecklistDownload has no question for failure mode “${category.id}”.`);
+
+const markdown = `# Evaluation checklist for an AI system
+
+Adapted from the Groundwork evaluation walkthrough (${total} checks, run ${run.ranAt.slice(0, 10)}).
+https://lily-feng.github.io/Lily-AI-Engineering-Workbench/demos/evaluation/
+
+For each failure mode, write at least one case: the bad output itself, what should happen, and why the case exists.
+
+${run.categories.map((category) => `## ${category.title}
+
+${questions[category.id]}
+
+- [ ] Case:
+- [ ] Expected:
+- [ ] Why it exists:
+`).join('\n')}
+## What a green suite will not tell you
+
+- Which failures has only a human caught so far? Turn each one into a case.
+- Which inputs or sources has the suite never seen?
+- What is not measured yet (cost, latency, real users), and when will it be?
+`;
+---
+
+<div class="wb not-content">
+  <button class="button primary" type="button" id="download-checklist" data-markdown={markdown}>Download the checklist (.md) <span aria-hidden="true">↓</span></button>
+</div>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('#download-checklist')!;
+  button.addEventListener('click', () => {
+    const url = URL.createObjectURL(new Blob([button.dataset.markdown!], { type: 'text/markdown' }));
+    const link = Object.assign(document.createElement('a'), { href: url, download: 'ai-evaluation-checklist.md' });
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+</script>

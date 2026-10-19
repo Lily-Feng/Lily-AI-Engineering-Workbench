@@ -1,0 +1,62 @@
+---
+title: Lily Feng — AI engineering demos and notes
+description: How I test whether an AI system is ready, shown on a real evaluation suite, with an 18-module engineering library behind it.
+template: splash
+hero:
+  title: Evaluation, made visible.
+  tagline: How I test whether an AI system is ready — the cases, the failures, and what a green suite still doesn’t prove. Nineteen years of enterprise data and AI delivery, most recently agent and evaluation systems at Visa.
+  actions:
+    - text: See the evaluation
+      link: /Lily-AI-Engineering-Workbench/demos/evaluation/
+      icon: right-arrow
+    - text: Browse the library
+      link: /Lily-AI-Engineering-Workbench/library/
+      variant: minimal
+---
+
+import { CardGrid, LinkCard, LinkButton } from '@astrojs/starlight/components';
+import EvalSummary from '../../components/eval/EvalSummary.astro';
+import { total } from '../../components/eval/run';
+
+<EvalSummary />
+
+## Demos
+
+Working systems, with their limits stated. Each demo says what it measures and
+what it does not.
+
+<CardGrid>
+  <LinkCard
+    title="Evaluation, made visible"
+    description={`${total} code-graded checks around an agent that builds a founder’s starter kit: what the gate refuses, how repair stops, and the two errors human review caught that the suite did not.`}
+    href="/Lily-AI-Engineering-Workbench/demos/evaluation/"
+  />
+  <LinkCard
+    title="Attention, made visible"
+    description="Change a mask, follow the Q/K/V arithmetic, and compare the KV cache behind MHA, GQA, and MQA. Toy vectors and theoretical cache sizes, not a benchmark."
+    href="/Lily-AI-Engineering-Workbench/library/attention/"
+  />
+</CardGrid>
+
+## Writing
+
+Short, practical posts on what each demo showed and what to test in your own
+system, published on my blog.
+
+<LinkCard title="Read the blog" href="https://lily-feng.github.io/blogs" description="lily-feng.github.io/blogs" />
+
+## The library
+
+The full 18-module AI engineering syllabus, from model principles to enterprise
+delivery, for going deeper. Interactive explanations are built one topic at a
+time.
+
+<LinkCard title="Browse all 18 modules" href="/Lily-AI-Engineering-Workbench/library/" />
+
+## Open to opportunities
+
+Staff/Principal roles and selected AI evaluation projects. If your team has an
+AI system that demos well and you need to know whether it works, I’d like to
+hear about it.
+
+<LinkButton href="https://lily-feng.github.io/about" icon="external">Get in touch</LinkButton>

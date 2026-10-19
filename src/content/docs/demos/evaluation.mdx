@@ -1,0 +1,144 @@
+---
+title: Evaluation, made visible
+description: How Groundwork's evals test an agent before its loop exists — the failure modes, the cases, every check as it ran, and what a green suite still does not prove.
+---
+
+import RunMeta from '../../../components/eval/RunMeta.astro';
+import FailureModes from '../../../components/eval/FailureModes.astro';
+import EvalCase from '../../../components/eval/EvalCase.astro';
+import CheckList from '../../../components/eval/CheckList.astro';
+import ChecklistDownload from '../../../components/eval/ChecklistDownload.astro';
+import { LinkButton } from '@astrojs/starlight/components';
+import { total, passed } from '../../../components/eval/run';
+
+Groundwork is an agent that gives a first-time founder a runnable starter kit:
+ordered filings, cited fees, and the tax elections that apply to them. Its evals
+were written before its agent loop. Here is what they check, and what a green
+suite still does not prove.
+
+<RunMeta />
+
+## Routes, cites, computes. Never advises.
+
+“LLC or S-corp?” has no answer as posed. An LLC is a state legal entity; an
+S-corp is a federal tax election made on top of one. Groundwork’s first job is
+to untangle the question, not answer it.
+
+**What “correct” means here.** Every fee, form, and deadline rests on quoted
+text from an official page that was actually fetched. Steps arrive in an order
+that works. A founder outside its scope gets a referral, not a kit. Nothing in
+the output recommends, and nothing files.
+
+**What is being evaluated.** The gate that any generated kit must pass, the
+bounded repair loop that sends failures back, the audit trail, and retrieval.
+These are deterministic, code-graded checks. They run before a model is in the
+loop, so every later change has something to be measured against.
+
+## Nine ways a plausible kit is wrong
+
+Each check is a bad output written down, not a description of one. Grouped by
+what goes wrong, the {total} checks cover nine failure modes. Select one to
+filter the full list below.
+
+<FailureModes />
+
+## Inside a case
+
+Four cases from the suite, quoted from the eval source.
+
+<EvalCase
+  check="blocks advisory language"
+  title="The model answers the question it was asked."
+  output={'decision brief · consequences\n“For a consultant at this revenue level you should elect S-corp status, which is the best option for most solo owners.”'}
+  expect="The gate refuses the kit with an advisory-language finding."
+  why="This is the most likely output of a naive build: confident, plausible, and unlicensed advice. The check reads every field a founder sees, not only this one."
+  file="evals/test_gate.py"
+/>
+
+<EvalCase
+  check="quoted evidence absent from the retrieved page is blocked"
+  title="The model writes its own evidence."
+  output={'fee · $999,999\nsource · tier-1 .gov page\nquote · “the filing fee is $999,999”'}
+  expect="Blocked: the quote does not appear on the retrieved page."
+  why="The citation is well formed, the source is official, and the quote matches the claim. It is still invented. The gate checks the quote against the page that was actually fetched."
+  file="evals/test_gate.py"
+/>
+
+<EvalCase
+  check="an unknown tax year yields no date, not a guessed one"
+  title="A missing fact quietly becomes a default."
+  output={'profile · unknowns = [tax_year_end]\nForm 2553 election window → ?'}
+  expect="No date. The deadline names the fact it is waiting on, and resolves once that fact is known."
+  why="Assuming a calendar year would produce a specific, official-looking, wrong deadline for a tax election."
+  file="evals/test_scenarios.py"
+/>
+
+<EvalCase
+  check="a loop that cannot converge terminates"
+  title="A repair that never succeeds."
+  output={'task · why\n“You should file this immediately; it is the best option.”\nrepairer · returns the same object every round'}
+  expect="The loop stops within its round budget, escalates, and never returns the kit as passed."
+  why="A model that cannot fix something hands back what it was given. The loop has to notice and stop anyway."
+  file="evals/test_repair.py"
+/>
+
+## Every check, as it ran
+
+<CheckList />
+
+## What a green suite doesn’t prove
+
+{passed} of {total} passing is not “correct.” A suite shows what it was written
+to catch. These are the things this one was not written to catch.
+
+- **Whether a correct quote is applied correctly.** Nothing checks that a
+  correctly quoted page is being applied to the right situation. Human review
+  found two errors of exactly this kind; they are shown below.
+- **Resistance to hostile sources.** No filing-mill page or injected
+  instruction text is in the corpus, so nothing shows the system would resist one.
+- **Whether the generated kit runs.** There is no kit compiler yet, so “does the
+  kit run” is unmeasured.
+- **Breadth.** One hand-authored kit, for one state. Other states are tested only
+  negatively: their guidance must not leak into a Texas answer.
+- **Model cost and latency.** The agent loop is not built yet. The repair tests
+  use stand-in generators, so there is no model call to time or price.
+
+### Caught by human review, not by the suite
+
+| The kit said | The rule actually is |
+| --- | --- |
+| “Texas LLCs owe an annual franchise tax report even in years when no tax is due.” | For report years 2024 and later the separate No Tax Due Report was discontinued. An entity at or below the threshold files a Public Information Report or Ownership Report. |
+| A missed Form 2553 window “costs a full year.” | The IRS documents conditional relief for late elections. The window still matters; the consequence is not automatic. |
+
+Both claims carried valid, verified, official citations. The page was right; its
+application was not. See the fixture’s
+[REVIEW.md](https://github.com/Lily-Feng/Lily-AI-Engineering-Workbench/blob/main/projects/groundwork/fixtures/golden/tx-solo-consultant/REVIEW.md).
+
+## What I would test next
+
+1. **Poison the corpus on purpose.** Add a filing-mill page and a page carrying
+   injected instructions. The kit must neither cite nor obey them.
+2. **Turn the human catches into cases.** Have a practitioner grade how quoted
+   rules are applied, so both errors above become regression tests instead of
+   review notes.
+3. **Add a second state.** A California fixture tests cross-jurisdiction
+   behaviour directly, rather than only by absence.
+4. **Measure the loop once it exists.** Cost, latency, repair rounds, and
+   escalation rate per run, read from the audit trail the suite already protects.
+
+## Use it on your system
+
+The nine failure modes, rewritten as questions you can ask of your own pilot,
+with space for a case under each. It is a Markdown file generated on this page;
+nothing is sent anywhere.
+
+<ChecklistDownload />
+
+## Building something that needs this?
+
+I’m open to Staff/Principal roles and selected AI evaluation projects: nineteen
+years of enterprise data and AI delivery, most recently agent and evaluation
+systems at Visa.
+
+<LinkButton href="https://lily-feng.github.io/about" icon="external">Get in touch</LinkButton>
+<LinkButton href="https://github.com/Lily-Feng/Lily-AI-Engineering-Workbench/blob/main/projects/groundwork/README.md" variant="minimal" icon="external">Groundwork source</LinkButton>

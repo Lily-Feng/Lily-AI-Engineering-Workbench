@@ -1,0 +1,33 @@
+---
+/**
+ * One featured case, quoted from the eval source. `check` must match a check
+ * name in the run exactly, or the build fails; its pass/fail badge is live.
+ */
+import { findCheck } from './run';
+import { sourceUrl } from '../../lib/url';
+
+interface Props {
+  check: string;
+  title: string;
+  /** The bad output the case feeds in, as the suite writes it. */
+  output: string;
+  expect: string;
+  why: string;
+  /** Path under projects/groundwork/, e.g. evals/test_gate.py */
+  file: string;
+}
+
+const { check: name, title, output, expect, why, file } = Astro.props;
+const check = findCheck(name);
+---
+
+<div class="wb not-content">
+  <div class="experiment case-card">
+    <div class="experiment-toolbar"><span class="experiment-label">{title}</span><span class:list={['status', check.passed ? 'ready' : 'failing']}>{check.passed ? 'Passing' : 'Failing'}</span></div>
+    <div class="case-body">
+      <div><span class="eyebrow">The output</span><pre>{output}</pre></div>
+      <div><span class="eyebrow">Must happen</span><p>{expect}</p><span class="eyebrow">Why the case exists</span><p>{why}</p></div>
+    </div>
+    <div class="experiment-footer"><code>{check.name}</code><a class="text-link" href={sourceUrl(`projects/groundwork/${file}`)}>{file} ↗</a></div>
+  </div>
+</div>

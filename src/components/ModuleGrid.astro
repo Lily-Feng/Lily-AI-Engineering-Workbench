@@ -1,0 +1,31 @@
+---
+/** All 18 modules, grouped by layer. Generated from modules/*.md via the catalog. */
+import { readCatalog, layers } from '../lib/catalog.mjs';
+import { libraryUrl } from '../lib/url';
+
+const locale = Astro.locals.starlightRoute.locale;
+const zh = locale === 'zh';
+const catalog = await readCatalog();
+const t = zh
+  ? { ready: '1 个交互主题', planned: '计划中', topics: '个大纲知识点' }
+  : { ready: '1 topic ready', planned: 'Planned', topics: 'syllabus topics' };
+---
+
+<div class="wb not-content">
+  {layers.map(([title, chinese], index) => (
+    <section class="layer-group">
+      <h2 class="layer-heading"><span class="eyebrow">L{index + 1}</span> {zh ? chinese : title}</h2>
+      <div class="module-grid">
+        {catalog.filter((module) => module.layer === index + 1).map((module) => (
+          <a class:list={['module-card', { 'module-card-ready': module.ready }]} href={libraryUrl(module.id, locale)}>
+            <div class="card-top"><span class="module-number">{module.id}</span><span class:list={['status', { ready: module.ready }]}>{module.ready ? t.ready : t.planned}</span></div>
+            <h3>{zh ? module.chinese : module.title}</h3>
+            {zh && <p class="card-subtitle">{module.title}</p>}
+            <p class="card-description">{module.description}</p>
+            <div class="card-bottom"><span>{module.topicCount} {t.topics} · {module.priority}</span><span aria-hidden="true">↗</span></div>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</div>
