@@ -27,6 +27,14 @@ export default defineConfig({
   site: 'https://lily-feng.github.io',
   base,
 
+  // No homepage for now: the root opens the library. Replace these with
+  // src/content/docs/index.mdx (and zh/index.mdx) when the site gets a front page.
+  // Astro does not prefix redirect targets with `base`, so they carry it.
+  redirects: {
+    '/': `${base}/library/`,
+    '/zh/': `${base}/zh/library/`,
+  },
+
   integrations: [
     starlight({
       title: 'Lily’s AI Workbench',

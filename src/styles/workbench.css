@@ -229,10 +229,6 @@
   .references strong {font-size: 13px; font-weight: 550;}
   .references small {grid-column: 2; color: var(--muted); font-size: 11px;}
   .references b {grid-column: 3; grid-row: 1; color: var(--accent);}
-  .eval-stats {display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 30px 0;}
-  .eval-stats > div {background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 14px;}
-  .eval-stats dt {font-family: var(--serif); font-size: 30px; color: var(--accent); line-height: 1.1;}
-  .eval-stats dd {margin: 6px 0 0; font-size: 11px; color: var(--muted); line-height: 1.4;}
   .demos {padding: 24px 0 0; scroll-margin-top: 30px;}
   .status.failing {color: var(--error); background: var(--error-soft);}
   .evaluation .lesson-header {border-top: 0;}
@@ -386,9 +382,6 @@
     .case-body, .limit-list {grid-template-columns: minmax(0, 1fr); gap: 8px;}
   }
   @media (max-width: 560px) {
-    .eval-stats {gap: 6px;}
-    .eval-stats > div {padding: 12px 10px;}
-    .eval-stats dt {font-size: 24px;}
     .check-list li {grid-template-columns: 20px minmax(0, 1fr);}
     .check-meta {grid-column: 2; text-align: left;}
     .case-body {padding: 16px;}
@@ -404,17 +397,7 @@
   .module-card h3 { margin-top: 8px; }
   .module-lead { color: var(--muted); font-size: 15px; margin: 4px 0 24px; }
   .run-meta { margin: 8px 0 0; }
-  .eval-card { display: block; margin: 0 0 8px; background: var(--sunken); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px 28px; text-decoration: none; }
-  .eval-card:hover { border-color: var(--line-strong); }
-  .eval-card-top { display: flex; justify-content: space-between; gap: 10px; }
-  .eval-card-source { font-family: var(--mono); font-size: 11px; color: var(--muted); }
-  .eval-stats { margin: 22px 0; }
-  .eval-card-caption { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 18px; border-top: 1px solid var(--line); }
-  .eval-card-caption strong { display: block; font-size: 15px; }
-  .eval-card-caption small { color: var(--muted); font-size: 12px; }
   .lesson-header { padding-top: 0; border-top: 0; }
   @media (max-width: 560px) {
-    .eval-card { padding: 18px; }
-    .eval-stats dd { font-size: 11px; }
   }
 }

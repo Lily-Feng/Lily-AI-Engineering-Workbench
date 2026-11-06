@@ -14,7 +14,7 @@ Most changes are text, and text lives in Markdown. Edit the file on github.com (
 
 | To change | Edit |
 | --- | --- |
-| Homepage | `src/content/docs/index.mdx` (中文: `src/content/docs/zh/index.mdx`) |
+| Where the root URL goes | `redirects` in `astro.config.mjs` (there is no homepage yet; `/` opens the library) |
 | Evaluation walkthrough | `src/content/docs/demos/evaluation.mdx` |
 | Library introduction | `src/content/docs/library/index.mdx` |
 | A module's syllabus, sidebar entry, or outline page | `modules/NN.md` — pages are generated from it; new Chinese topic titles need an English entry in `src/data/syllabus-english.json` |
